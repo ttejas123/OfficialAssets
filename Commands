@@ -1,0 +1,5 @@
+Run:         ./gradlew bootRun
+get_ipv4:    ipconfig getifaddr en0
+rebuild:     ./gradlew --refresh-dependencies
+clear_cache: rm -rf $HOME/.gradle/caches/
+clean:       ./gradlew clean
