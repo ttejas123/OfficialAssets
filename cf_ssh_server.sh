@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-REGISTRY="https://YOUR-REGISTRY-URL"   # worker / lambda endpoint
+REGISTRY="https://cf-ssh-registry.staticassets.workers.dev"
 OS="$(uname -s)"
 USER_NAME="$(whoami)"
 MACHINE="$(hostname)"
