@@ -19,13 +19,32 @@ install_linux() {
   sudo mv /tmp/cloudflared /usr/local/bin/cloudflared
 }
 
+# install_mac_v1() {
+#   if ! command -v brew >/dev/null; then
+#     echo "✖ Homebrew not found. Install Homebrew first."
+#     exit 1
+#   fi
+#   brew install cloudflare/cloudflare/cloudflared
+# }
+
 install_mac() {
-  if ! command -v brew >/dev/null; then
-    echo "✖ Homebrew not found. Install Homebrew first."
-    exit 1
+  # Install Homebrew if not installed
+  if ! command -v brew >/dev/null 2>&1; then
+    echo "Homebrew not found. Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+    # Ensure brew is available in the current shell
+    if [[ -d "/opt/homebrew/bin" ]]; then
+      eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [[ -d "/usr/local/bin" ]]; then
+      eval "$(/usr/local/bin/brew shellenv)"
+    fi
   fi
+
+  echo "Installing cloudflared..."
   brew install cloudflare/cloudflare/cloudflared
 }
+
 
 if ! command -v cloudflared >/dev/null; then
   [[ "$OS" == "Linux" ]] && install_linux
